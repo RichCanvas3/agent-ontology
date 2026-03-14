@@ -2,6 +2,8 @@
 @prefix intent: <https://w3id.org/agent-ontology/intent#> .
 @prefix core: <https://w3id.org/agent-ontology/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix epplan: <https://w3id.org/ep-plan#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -19,25 +21,35 @@
   dcterms:modified "2025-11-10"^^xsd:date ;
   owl:versionInfo "0.2.0" ;
   owl:imports <https://w3id.org/agent-ontology/intent> ;
-  owl:imports <https://w3id.org/agent-ontology/core> .
+  owl:imports <https://w3id.org/agent-ontology/core> ;
+  owl:imports <http://www.w3.org/ns/prov#> ;
+  owl:imports <https://w3id.org/ep-plan> .
 
 #################################################################
 # Execution Environment Classes
 #################################################################
 
 ctx:ExecutionEnvironment a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf epplan:Entity ;
     rdfs:label "ExecutionEnvironment" ;
     rdfs:comment "Describes the host environment where an action is executed." .
 
 ctx:SecurityContext a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf epplan:Entity ;
     rdfs:label "SecurityContext" ;
     rdfs:comment "Security-related constraints and guarantees active during execution." .
 
 ctx:InputState a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf epplan:Entity ;
     rdfs:label "InputState" ;
     rdfs:comment "Represents the inputs provided to an action." .
 
 ctx:OutputState a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf epplan:Entity ;
     rdfs:label "OutputState" ;
     rdfs:comment "Represents the outputs returned by an action." .
 
@@ -46,21 +58,21 @@ ctx:OutputState a owl:Class ;
 #################################################################
 
 ctx:hasEnvironment a owl:ObjectProperty ;
-    rdfs:domain intent:ExecutionContext ;
+    rdfs:domain core:ExecutionContext ;
     rdfs:range ctx:ExecutionEnvironment ;
     rdfs:label "hasEnvironment" .
 
 ctx:hasSecurityContext a owl:ObjectProperty ;
-    rdfs:domain intent:ExecutionContext ;
+    rdfs:domain core:ExecutionContext ;
     rdfs:range ctx:SecurityContext ;
     rdfs:label "hasSecurityContext" .
 
 ctx:inputState a owl:ObjectProperty ;
-    rdfs:domain intent:ExecutionContext ;
+    rdfs:domain core:ExecutionContext ;
     rdfs:range ctx:InputState .
 
 ctx:outputState a owl:ObjectProperty ;
-    rdfs:domain intent:ExecutionContext ;
+    rdfs:domain core:ExecutionContext ;
     rdfs:range ctx:OutputState .
 
 #################################################################

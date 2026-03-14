@@ -1,0 +1,31 @@
+{
+  "@context": {
+    "@vocab": "https://w3id.org/agent-ontology/ethereum#",
+    "eth": "https://w3id.org/agent-ontology/ethereum#",
+    "core": "https://w3id.org/agent-ontology/core#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "ethon": "http://ethon.consensys.net/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "id": "@id",
+    "type": "@type",
+
+    "Account": "eth:Account",
+    "ExternalAccount": "eth:ExternalAccount",
+    "ContractAccount": "eth:ContractAccount",
+    "Transaction": "eth:Transaction",
+
+    "address": {
+      "@id": "eth:address",
+      "@type": "xsd:string"
+    },
+    "from": { "@id": "eth:from", "@type": "@id" },
+    "to": { "@id": "eth:to", "@type": "@id" },
+    "value": { "@id": "eth:value", "@type": "xsd:decimal" },
+    "data": { "@id": "eth:data", "@type": "xsd:string" },
+    "nonce": { "@id": "eth:nonce", "@type": "xsd:nonNegativeInteger" },
+    "chainId": { "@id": "eth:chainId", "@type": "xsd:nonNegativeInteger" },
+    "signature": { "@id": "eth:signature", "@type": "xsd:string" }
+  }
+}
+

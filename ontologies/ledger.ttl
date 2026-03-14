@@ -9,6 +9,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 #################################################################
 # Ontology Header
@@ -33,6 +34,7 @@
 #################################################################
 
 ledger:LedgerEvent a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
     rdfs:label "LedgerEvent" ;
     rdfs:comment "Canonical semantic event in append-only ledger stream." .
 
@@ -57,7 +59,8 @@ ledger:eventId a owl:DatatypeProperty ;
 
 ledger:timestamp a owl:DatatypeProperty ;
     rdfs:domain ledger:LedgerEvent ;
-    rdfs:range xsd:dateTime .
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf prov:generatedAtTime .
 
 ledger:previousEventHash a owl:DatatypeProperty ;
     rdfs:domain ledger:LedgerEvent ;
@@ -103,6 +106,7 @@ ledger:verifiedBy a owl:DatatypeProperty ;
 ledger:actor a owl:ObjectProperty ;
     rdfs:domain ledger:LedgerEvent ;
     rdfs:range agent:Agent ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
     rdfs:comment "Agent or principal responsible for the event." .
 
 ledger:delegation a owl:ObjectProperty ;
@@ -117,7 +121,8 @@ ledger:delegation a owl:ObjectProperty ;
 
 ledger:action a owl:ObjectProperty ;
     rdfs:domain ledger:RuntimeLedgerEvent ;
-    rdfs:range core:Action .
+    rdfs:range core:Action ;
+    rdfs:subPropertyOf prov:wasGeneratedBy .
 
 ledger:intent a owl:DatatypeProperty ;
     rdfs:domain ledger:RuntimeLedgerEvent ;

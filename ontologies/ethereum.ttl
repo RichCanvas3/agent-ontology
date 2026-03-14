@@ -1,0 +1,106 @@
+@prefix eth: <https://w3id.org/agent-ontology/ethereum#> .
+@prefix core: <https://w3id.org/agent-ontology/core#> .
+@prefix ethon: <http://ethon.consensys.net/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+#################################################################
+# Ontology Header
+#################################################################
+
+<https://w3id.org/agent-ontology/ethereum>
+  dcterms:title "Ethereum Ontology Bridge" ;
+  dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+  dcterms:rightsHolder "Semantic Agent Communication Community Group" ;
+  dcterms:creator "SAC-CG (derived work; EthOn-aligned)" ;
+  dcterms:description "Bridges core agent semantics to Ethereum primitives by importing EthOn and defining minimal account/transaction properties for higher-level intent and delegation overlays." ;
+  dcterms:modified "2026-03-14"^^xsd:date ;
+  owl:versionInfo "0.1.0" ;
+  owl:imports <https://w3id.org/agent-ontology/core> ;
+  owl:imports <http://ethon.consensys.net/0/> .
+
+#################################################################
+# Core Ethereum Concepts (EthOn-aligned)
+#################################################################
+
+eth:Account a owl:Class ;
+  rdfs:label "Ethereum Account" ;
+  rdfs:comment "An Ethereum account concept aligned to EthOn." ;
+  rdfs:subClassOf ethon:Account ;
+  rdfs:subClassOf core:AgentEntity ;
+  rdfs:subClassOf prov:Entity .
+
+eth:ExternalAccount a owl:Class ;
+  rdfs:label "Externally Owned Account" ;
+  rdfs:comment "An externally owned account (EOA)." ;
+  rdfs:subClassOf eth:Account ;
+  rdfs:subClassOf ethon:ExternalAccount .
+
+eth:ContractAccount a owl:Class ;
+  rdfs:label "Contract Account" ;
+  rdfs:comment "A contract account (smart contract) on Ethereum." ;
+  rdfs:subClassOf eth:Account ;
+  rdfs:subClassOf ethon:ContractAccount .
+
+eth:Transaction a owl:Class ;
+  rdfs:label "Ethereum Transaction" ;
+  rdfs:comment "A transaction aligned to EthOn's Tx concept." ;
+  rdfs:subClassOf ethon:Tx ;
+  rdfs:subClassOf prov:Activity .
+
+#################################################################
+# Basic account/transaction properties
+#################################################################
+
+eth:address a owl:DatatypeProperty ;
+  rdfs:domain eth:Account ;
+  rdfs:range xsd:string ;
+  rdfs:label "address" ;
+  rdfs:comment "Hex-encoded Ethereum address (0x...)."
+  .
+
+eth:from a owl:ObjectProperty ;
+  rdfs:domain eth:Transaction ;
+  rdfs:range eth:Account ;
+  rdfs:label "from" ;
+  rdfs:comment "Transaction sender account." .
+
+eth:to a owl:ObjectProperty ;
+  rdfs:domain eth:Transaction ;
+  rdfs:range eth:Account ;
+  rdfs:label "to" ;
+  rdfs:comment "Transaction recipient account (may be absent for contract creation)." .
+
+eth:value a owl:DatatypeProperty ;
+  rdfs:domain eth:Transaction ;
+  rdfs:range xsd:decimal ;
+  rdfs:label "value" ;
+  rdfs:comment "Native value transferred (e.g., wei), expressed as a decimal number." .
+
+eth:data a owl:DatatypeProperty ;
+  rdfs:domain eth:Transaction ;
+  rdfs:range xsd:string ;
+  rdfs:label "data" ;
+  rdfs:comment "Transaction calldata (hex-encoded) or encoded payload." .
+
+eth:nonce a owl:DatatypeProperty ;
+  rdfs:domain eth:Transaction ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:label "nonce" ;
+  rdfs:comment "Sender nonce used for replay protection." .
+
+eth:chainId a owl:DatatypeProperty ;
+  rdfs:domain eth:Transaction ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:label "chainId" ;
+  rdfs:comment "EIP-155 chain ID." .
+
+eth:signature a owl:DatatypeProperty ;
+  rdfs:domain eth:Transaction ;
+  rdfs:range xsd:string ;
+  rdfs:label "signature" ;
+  rdfs:comment "Transaction signature encoding (implementation-specific)." .
+

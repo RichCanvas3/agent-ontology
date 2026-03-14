@@ -1,5 +1,11 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix intent: <https://w3id.org/agent-ontology/intent#> .
+@prefix core: <https://w3id.org/agent-ontology/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pplan: <http://purl.org/net/p-plan#> .
+@prefix epplan: <https://w3id.org/ep-plan#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # -- Shape for intent:Intent --
@@ -11,4 +17,55 @@ intent:IntentShape
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
+    ] .
+
+#################################################################
+# Ontology-level alignment checks (Intent ↔ PROV / P-PLAN / EP-PLAN)
+#################################################################
+
+intent:IntentAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode intent:Intent ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue core:Intent ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue prov:Plan ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue pplan:Plan ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue epplan:Plan ;
+        sh:minCount 1 ;
+    ] .
+
+intent:IntentParameterAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode intent:IntentParameter ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue pplan:Variable ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue epplan:Variable ;
+        sh:minCount 1 ;
+    ] .
+
+intent:HasParameterAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode intent:hasParameter ;
+    sh:property [
+        sh:path owl:inverseOf ;
+        sh:hasValue pplan:isVariableOfPlan ;
+        sh:minCount 1 ;
     ] .

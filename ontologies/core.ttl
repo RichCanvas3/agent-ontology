@@ -4,6 +4,9 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pplan: <http://purl.org/net/p-plan#> .
+@prefix epplan: <https://w3id.org/ep-plan#> .
 
 #################################################################
 # Ontology Header
@@ -16,7 +19,10 @@
   dcterms:creator "Tyson Chen (SlashLife AI)" ;
   dcterms:description "The foundational ontology for AI Agent semantics, defining core concepts for communication, delegation, and execution." ;
   dcterms:modified "2025-11-10"^^xsd:date ;
-  owl:versionInfo "0.2.0" .
+  owl:versionInfo "0.2.0" ;
+  owl:imports <http://www.w3.org/ns/prov#> ;
+  owl:imports <http://www.opmw.org/p-plan.owl> ;
+  owl:imports <https://w3id.org/ep-plan> .
 
 #################################################################
 # Core Ontology for Agent Semantics
@@ -28,14 +34,19 @@
 
 :Agent a owl:Class ;
     rdfs:subClassOf :AgentEntity ;
+    rdfs:subClassOf prov:Agent ;
     rdfs:label "Agent" ;
     rdfs:comment "An autonomous actor capable of perceiving, interpreting, or executing actions within a delegated semantic environment." .
 
 :Capability a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
     rdfs:label "Capability" ;
     rdfs:comment "A describable functional competence or operational capacity of an Agent." .
 
 :Intent a owl:Class ;
+    rdfs:subClassOf prov:Plan ;
+    rdfs:subClassOf pplan:Plan ;
+    rdfs:subClassOf epplan:Plan ;
     rdfs:label "Intent" ;
     rdfs:comment "A semantic expression of purpose, objective, or expected action outcome." .
 
@@ -44,22 +55,32 @@
     rdfs:comment "A structured semantic relation where one Agent authorizes another to act within a defined scope." .
 
 :ExecutionContext a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
     rdfs:label "ExecutionContext" ;
     rdfs:comment "A contextual frame describing conditions, trust anchors, or constraints associated with an Agent action." .
 
 :Action a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:subClassOf pplan:Activity ;
+    rdfs:subClassOf epplan:Activity ;
     rdfs:label "Action" ;
     rdfs:comment "A concrete execution event initiated by an Agent, producing observable or verifiable consequences." .
 
 :Artifact a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf pplan:Entity ;
+    rdfs:subClassOf epplan:Entity ;
     rdfs:label "Artifact" ;
     rdfs:comment "A produced output or result generated through agent execution." .
 
 :TraceEvent a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
     rdfs:label "TraceEvent" ;
     rdfs:comment "A verifiable record linking an Agent, an Action, and contextual constraints." .
 
 :Task a owl:Class ;
+    rdfs:subClassOf pplan:Step ;
+    rdfs:subClassOf epplan:Step ;
     rdfs:label "Task" ;
     rdfs:comment "A well-defined action unit exchanged between Agents." .
 
@@ -111,15 +132,25 @@
     rdfs:label "executesAction" ;
     rdfs:comment "Associates an Agent with an Action it performs." .
 
+:wasAssociatedWith a owl:ObjectProperty ;
+    rdfs:domain :Action ;
+    rdfs:range :Agent ;
+    rdfs:subPropertyOf prov:wasAssociatedWith ;
+    owl:inverseOf :executesAction ;
+    rdfs:label "wasAssociatedWith" ;
+    rdfs:comment "PROV-compatible view: links an Action (Activity) to the Agent associated with it." .
+
 :producesArtifact a owl:ObjectProperty ;
     rdfs:domain :Action ;
     rdfs:range :Artifact ;
+    rdfs:subPropertyOf prov:generated ;
     rdfs:label "producesArtifact" ;
     rdfs:comment "Specifies the Artifact produced by an Action." .
 
 :recordedIn a owl:ObjectProperty ;
     rdfs:domain :Action ;
     rdfs:range :TraceEvent ;
+    rdfs:subPropertyOf prov:generated ;
     rdfs:label "recordedIn" ;
     rdfs:comment "Links an Action to its verifiable trace record." .
 
@@ -160,6 +191,7 @@
 :timestamp a owl:DatatypeProperty ;
     rdfs:domain :TraceEvent ;
     rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf prov:generatedAtTime ;
     rdfs:label "timestamp" ;
     rdfs:comment "Timestamp corresponding to the trace event." .
 

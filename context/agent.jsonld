@@ -6,6 +6,15 @@
     "identity": "https://w3id.org/agent-ontology/identity#",
     "cap": "https://w3id.org/agent-ontology/capability#",
     "del": "https://w3id.org/agent-ontology/delegation#",
+    "ai": "https://w3id.org/agent-ontology/ai-agent#",
+    "eth": "https://w3id.org/agent-ontology/ethereum#",
+    "ethid": "https://w3id.org/agent-ontology/ethereum-intent-delegation#",
+    "eip7702": "https://w3id.org/agent-ontology/eip-7702#",
+    "erc7710": "https://w3id.org/agent-ontology/erc-7710#",
+    "erc4337": "https://w3id.org/agent-ontology/erc-4337#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "pplan": "http://purl.org/net/p-plan#",
+    "epplan": "https://w3id.org/ep-plan#",
     "did_ns": "https://www.w3.org/ns/did#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
@@ -25,6 +34,8 @@
     "ExecutionContext": "core:ExecutionContext",
     "TraceEvent": "core:TraceEvent",
     "Artifact": "core:Artifact",
+    "AIAgent": "ai:AIAgent",
+    "SoftwareAgent": "agent:SoftwareAgent",
 
     "did": {
       "@id": "did_ns:did",
@@ -60,6 +71,10 @@
       "@id": "core:executesAction",
       "@type": "@id"
     },
+    "wasAssociatedWith": {
+      "@id": "core:wasAssociatedWith",
+      "@type": "@id"
+    },
     "producesArtifact": {
       "@id": "core:producesArtifact",
       "@type": "@id"
@@ -79,6 +94,10 @@
     },
     "delegatesTo": {
       "@id": "del:delegatesTo",
+      "@type": "@id"
+    },
+    "actedOnBehalfOf": {
+      "@id": "del:actedOnBehalfOf",
       "@type": "@id"
     },
     "delegationScope": {

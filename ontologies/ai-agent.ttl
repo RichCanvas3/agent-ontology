@@ -1,0 +1,38 @@
+@prefix ai: <https://w3id.org/agent-ontology/ai-agent#> .
+@prefix core: <https://w3id.org/agent-ontology/core#> .
+@prefix agent: <https://w3id.org/agent-ontology/agent#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix schema: <http://schema.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+#################################################################
+# Ontology Header
+#################################################################
+
+<https://w3id.org/agent-ontology/ai-agent>
+  dcterms:title "AI Agent Ontology" ;
+  dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+  dcterms:rightsHolder "Semantic Agent Communication Community Group" ;
+  dcterms:creator "Tyson Chen (SlashLife AI)" ;
+  dcterms:description "Defines AI Agent as a software agent grounded in PROV-O and interoperable with Schema.org software concepts." ;
+  dcterms:modified "2026-03-14"^^xsd:date ;
+  owl:versionInfo "0.1.0" ;
+  owl:imports <https://w3id.org/agent-ontology/core> ;
+  owl:imports <https://w3id.org/agent-ontology/agent> ;
+  owl:imports <https://w3id.org/agent-ontology/schema-org-mapping> .
+
+#################################################################
+# AI Agent
+#################################################################
+
+ai:AIAgent a owl:Class ;
+  rdfs:label "AI Agent" ;
+  rdfs:comment "A software agent (PROV-O) that instantiates the core Agent semantics in this ontology." ;
+  rdfs:subClassOf core:Agent ;
+  rdfs:subClassOf prov:SoftwareAgent ;
+  rdfs:subClassOf schema:SoftwareApplication ;
+  rdfs:subClassOf schema:Service .
+

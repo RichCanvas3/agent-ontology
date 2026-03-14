@@ -3,6 +3,8 @@
     "@vocab": "https://w3id.org/agent-ontology/execution-context#",
     "ctx": "https://w3id.org/agent-ontology/execution-context#",
     "core": "https://w3id.org/agent-ontology/core#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "epplan": "https://w3id.org/ep-plan#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
 

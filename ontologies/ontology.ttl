@@ -11,6 +11,9 @@
   rdfs:comment "The main entry point for the complete AI Agent Ontology, importing all constituent modules." ;
   owl:imports <https://w3id.org/agent-ontology/core> ;
   owl:imports <https://w3id.org/agent-ontology/agent> ;
+  owl:imports <https://w3id.org/agent-ontology/ai-agent> ;
+  owl:imports <https://w3id.org/agent-ontology/ethereum> ;
+  owl:imports <https://w3id.org/agent-ontology/ethereum-intent-delegation> ;
   owl:imports <https://w3id.org/agent-ontology/capability> ;
   owl:imports <https://w3id.org/agent-ontology/delegation> ;
   owl:imports <https://w3id.org/agent-ontology/accountability> ;

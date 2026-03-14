@@ -1,0 +1,15 @@
+{
+  "@context": {
+    "@vocab": "https://w3id.org/agent-ontology/ai-agent#",
+    "ai": "https://w3id.org/agent-ontology/ai-agent#",
+    "core": "https://w3id.org/agent-ontology/core#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "schema": "http://schema.org/",
+
+    "id": "@id",
+    "type": "@type",
+
+    "AIAgent": "ai:AIAgent"
+  }
+}
+

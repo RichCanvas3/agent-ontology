@@ -8,6 +8,7 @@ Adds “AI Agent as an entity in the world” structure on top of `core:Agent`: 
   - `agent:PurposeRole`, `agent:OperationalProfile`, `agent:Trigger`, `agent:InputSpec`, `agent:OutputSpec`
   - `agent:SystemIntegration`, `agent:InterfaceSpec`
   - `agent:IdentitySet`, `agent:IdentityBinding`
+  - `agent:SoftwareAgent` (`rdfs:subClassOf core:Agent`, `rdfs:subClassOf prov:SoftwareAgent`)
   - `agent:Person` (`rdfs:subClassOf core:Agent`)
   - `agent:Organization` (`rdfs:subClassOf core:Agent`)
 - **Object properties (domain `core:Agent` unless noted)**

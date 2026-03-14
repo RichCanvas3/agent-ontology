@@ -3,6 +3,9 @@
 @prefix del: <https://w3id.org/agent-ontology/delegation#> .
 @prefix ledger: <https://w3id.org/agent-ontology/ledger#> .
 @prefix cap: <https://w3id.org/agent-ontology/capability#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pplan: <http://purl.org/net/p-plan#> .
+@prefix epplan: <https://w3id.org/ep-plan#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -22,13 +25,20 @@
   owl:versionInfo "0.3.0" ;
   owl:imports <https://w3id.org/agent-ontology/core> ;
   owl:imports <https://w3id.org/agent-ontology/delegation> ;
-  owl:imports <https://w3id.org/agent-ontology/ledger> .
+  owl:imports <https://w3id.org/agent-ontology/ledger> ;
+  owl:imports <http://www.opmw.org/p-plan.owl> ;
+  owl:imports <https://w3id.org/ep-plan> ;
+  owl:imports <http://www.w3.org/ns/prov#> .
 
 #################################################################
 # Intent Model — Core Classes
 #################################################################
 
 intent:Intent a owl:Class ;
+    rdfs:subClassOf core:Intent ;
+    rdfs:subClassOf prov:Plan ;
+    rdfs:subClassOf pplan:Plan ;
+    rdfs:subClassOf epplan:Plan ;
     rdfs:label "Intent" ;
     rdfs:comment "A semantic statement expressing what an agent aims to achieve." .
 
@@ -37,6 +47,9 @@ intent:IntentType a owl:Class ;
     rdfs:comment "Categorizes an intent (e.g., fetch-data, make-decision, generate-artifact)." .
 
 intent:IntentParameter a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf pplan:Variable ;
+    rdfs:subClassOf epplan:Variable ;
     rdfs:label "IntentParameter" ;
     rdfs:comment "Typed parameters specifying the scope and execution conditions of an intent." .
 
@@ -56,6 +69,7 @@ intent:hasIntentType a owl:ObjectProperty ;
 intent:hasParameter a owl:ObjectProperty ;
     rdfs:domain intent:Intent ;
     rdfs:range intent:IntentParameter ;
+    owl:inverseOf pplan:isVariableOfPlan ;
     rdfs:label "hasParameter" .
 
 intent:authorizedBy a owl:ObjectProperty ;
@@ -86,6 +100,7 @@ intent:executedIn a owl:ObjectProperty ;
 intent:loggedAs a owl:ObjectProperty ;
     rdfs:domain core:Action ;
     rdfs:range ledger:RuntimeLedgerRecord ;
+    rdfs:subPropertyOf prov:generated ;
     rdfs:label "loggedAs" ;
     rdfs:comment "Links an executed action to its ledger record." .
 

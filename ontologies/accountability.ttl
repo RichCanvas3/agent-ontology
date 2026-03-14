@@ -9,6 +9,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 #################################################################
 # Ontology Header
@@ -34,6 +35,7 @@
 #################################################################
 
 acc:AccountabilityEvent a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
     rdfs:label "AccountabilityEvent" ;
     rdfs:comment "Evaluative record assessing correctness, authorization, and compliance for an executed action." .
 
@@ -60,7 +62,8 @@ acc:eventId a owl:DatatypeProperty ;
 
 acc:timestamp a owl:DatatypeProperty ;
     rdfs:domain acc:AccountabilityEvent ;
-    rdfs:range xsd:dateTime .
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf prov:generatedAtTime .
 
 
 #################################################################
@@ -69,11 +72,13 @@ acc:timestamp a owl:DatatypeProperty ;
 
 acc:actor a owl:ObjectProperty ;
     rdfs:domain acc:AccountabilityEvent ;
-    rdfs:range agent:Agent .
+    rdfs:range agent:Agent ;
+    rdfs:subPropertyOf prov:wasAttributedTo .
 
 acc:action a owl:ObjectProperty ;
     rdfs:domain acc:AccountabilityEvent ;
-    rdfs:range core:Action .
+    rdfs:range core:Action ;
+    rdfs:subPropertyOf prov:wasGeneratedBy .
 
 acc:intent a owl:DatatypeProperty ;
     rdfs:domain acc:AccountabilityEvent ;

@@ -4,6 +4,8 @@
     "del": "https://w3id.org/agent-ontology/delegation#",
     "core": "https://w3id.org/agent-ontology/core#",
     "cap": "https://w3id.org/agent-ontology/capability#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "epplan": "https://w3id.org/ep-plan#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
 
@@ -15,6 +17,7 @@
 
     "grantor": { "@id": "del:delegatedBy", "@type": "@id" },
     "grantee": { "@id": "del:delegatesTo", "@type": "@id" },
+    "actedOnBehalfOf": { "@id": "del:actedOnBehalfOf", "@type": "@id" },
 
     "scope": { "@id": "del:delegationScope", "@type": "@id" },
     "DelegationScope": "del:DelegationScope",

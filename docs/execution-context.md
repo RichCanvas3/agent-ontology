@@ -9,9 +9,9 @@ Defines the **execution environment** for agent actions: environment type (sandb
   - `ctx:InputState`, `ctx:OutputState`
   - `ctx:ResourceConstraint`, `ctx:RateLimit`, `ctx:Budget`
 - **Object properties**
-  - `ctx:hasEnvironment` (domain `intent:ExecutionContext`)
-  - `ctx:hasSecurityContext` (domain `intent:ExecutionContext`)
-  - `ctx:inputState`, `ctx:outputState` (domain `intent:ExecutionContext`)
+  - `ctx:hasEnvironment` (domain `core:ExecutionContext`)
+  - `ctx:hasSecurityContext` (domain `core:ExecutionContext`)
+  - `ctx:inputState`, `ctx:outputState` (domain `core:ExecutionContext`)
   - `ctx:hasResourceConstraint` (Environment → ResourceConstraint)
   - `ctx:hasRateLimit` (Environment → RateLimit)
   - `ctx:hasBudget` (Environment → Budget)
@@ -21,6 +21,14 @@ Defines the **execution environment** for agent actions: environment type (sandb
   - `ctx:constraintType`, `ctx:constraintValue`
   - `ctx:maxRequests`, `ctx:perSeconds`
   - `ctx:amount`, `ctx:currency`
+
+### Upper ontology mappings
+
+- **PROV-O / EP-PLAN**
+  - `ctx:ExecutionEnvironment ⊑ prov:Entity` and `⊑ epplan:Entity`
+  - `ctx:SecurityContext ⊑ prov:Entity` and `⊑ epplan:Entity`
+  - `ctx:InputState ⊑ prov:Entity` and `⊑ epplan:Entity`
+  - `ctx:OutputState ⊑ prov:Entity` and `⊑ epplan:Entity`
 
 ### Hierarchy diagram
 

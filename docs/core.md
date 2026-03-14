@@ -17,6 +17,23 @@ Defines the minimal vocabulary for executable agent semantics: **Agent**, **Capa
 - **Datatype properties**
   - `core:timestamp` (on `core:TraceEvent`), `core:description` (on `core:Artifact`)
 
+### Upper ontology mappings
+
+- **PROV-O**
+  - `core:Agent ⊑ prov:Agent`
+  - `core:Action ⊑ prov:Activity`
+  - `core:Artifact ⊑ prov:Entity`
+  - `core:Intent ⊑ prov:Plan`
+  - `core:producesArtifact ⊑ prov:generated`
+  - `core:recordedIn ⊑ prov:generated`
+  - `core:timestamp ⊑ prov:generatedAtTime`
+  - `core:wasAssociatedWith ⊑ prov:wasAssociatedWith` and `core:wasAssociatedWith ≡ inverse(core:executesAction)`
+- **P-PLAN / EP-PLAN**
+  - `core:Intent ⊑ pplan:Plan` and `⊑ epplan:Plan`
+  - `core:Action ⊑ pplan:Activity` and `⊑ epplan:Activity`
+  - `core:Artifact ⊑ pplan:Entity` and `⊑ epplan:Entity`
+  - `core:Task ⊑ pplan:Step` and `⊑ epplan:Step`
+
 ### Hierarchy diagram
 
 ```mermaid

@@ -1,0 +1,27 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix eth: <https://w3id.org/agent-ontology/ethereum#> .
+
+eth:AccountShape
+  a sh:NodeShape ;
+  sh:targetClass eth:Account ;
+  sh:property [
+    sh:path eth:address ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] .
+
+eth:TransactionShape
+  a sh:NodeShape ;
+  sh:targetClass eth:Transaction ;
+  sh:property [
+    sh:path eth:from ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path eth:chainId ;
+    sh:datatype xsd:nonNegativeInteger ;
+    sh:minCount 0 ;
+  ] .
+

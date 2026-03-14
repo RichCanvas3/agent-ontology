@@ -1,0 +1,41 @@
+{
+  "@context": {
+    "@vocab": "https://w3id.org/agent-ontology/ethereum-intent-delegation#",
+    "ethid": "https://w3id.org/agent-ontology/ethereum-intent-delegation#",
+    "eth": "https://w3id.org/agent-ontology/ethereum#",
+    "core": "https://w3id.org/agent-ontology/core#",
+    "intent": "https://w3id.org/agent-ontology/intent#",
+    "del": "https://w3id.org/agent-ontology/delegation#",
+    "cap": "https://w3id.org/agent-ontology/capability#",
+    "ledger": "https://w3id.org/agent-ontology/ledger#",
+
+    "eip7702": "https://w3id.org/agent-ontology/eip-7702#",
+    "erc7710": "https://w3id.org/agent-ontology/erc-7710#",
+    "erc4337": "https://w3id.org/agent-ontology/erc-4337#",
+
+    "prov": "http://www.w3.org/ns/prov#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "id": "@id",
+    "type": "@type",
+
+    "SetCodeTransaction": "eip7702:SetCodeTransaction",
+    "AuthorizationTuple": "eip7702:AuthorizationTuple",
+    "DelegationManager": "erc7710:DelegationManager",
+    "PermissionContext": "erc7710:PermissionContext",
+    "UserOperation": "erc4337:UserOperation",
+    "EntryPoint": "erc4337:EntryPoint",
+
+    "authorization": { "@id": "eip7702:authorization", "@type": "@id" },
+    "authorityAccount": { "@id": "eip7702:authorityAccount", "@type": "@id" },
+    "delegatesCodeTo": { "@id": "eip7702:delegatesCodeTo", "@type": "@id" },
+    "delegationIndicator": { "@id": "eip7702:delegationIndicator", "@type": "xsd:string" },
+
+    "asPermissionContext": { "@id": "eth:asPermissionContext", "@type": "@id" },
+    "redeemedViaManager": { "@id": "eth:redeemedViaManager", "@type": "@id" },
+
+    "submittedAsUserOperation": { "@id": "eth:submittedAsUserOperation", "@type": "@id" },
+    "executedViaEntryPoint": { "@id": "eth:executedViaEntryPoint", "@type": "@id" }
+  }
+}
+

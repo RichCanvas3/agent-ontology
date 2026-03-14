@@ -1,0 +1,248 @@
+@prefix ethid: <https://w3id.org/agent-ontology/ethereum-intent-delegation#> .
+@prefix eth: <https://w3id.org/agent-ontology/ethereum#> .
+@prefix core: <https://w3id.org/agent-ontology/core#> .
+@prefix intent: <https://w3id.org/agent-ontology/intent#> .
+@prefix del: <https://w3id.org/agent-ontology/delegation#> .
+@prefix cap: <https://w3id.org/agent-ontology/capability#> .
+@prefix ledger: <https://w3id.org/agent-ontology/ledger#> .
+
+@prefix eip7702: <https://w3id.org/agent-ontology/eip-7702#> .
+@prefix erc7710: <https://w3id.org/agent-ontology/erc-7710#> .
+@prefix erc4337: <https://w3id.org/agent-ontology/erc-4337#> .
+
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+#################################################################
+# Ontology Header
+#################################################################
+
+<https://w3id.org/agent-ontology/ethereum-intent-delegation>
+  dcterms:title "Ethereum Intent & Delegation Overlay" ;
+  dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+  dcterms:rightsHolder "Semantic Agent Communication Community Group" ;
+  dcterms:creator "SAC-CG (Ethereum overlay)" ;
+  dcterms:description "Ethereum-specific ontology layer mapping agent intents and delegations to EIP-7702 (set-code authorization), ERC-7710 (delegation redemption), and ERC-4337 (account abstraction) concepts." ;
+  dcterms:modified "2026-03-14"^^xsd:date ;
+  owl:versionInfo "0.1.0" ;
+  owl:imports <https://w3id.org/agent-ontology/ethereum> ;
+  owl:imports <https://w3id.org/agent-ontology/intent> ;
+  owl:imports <https://w3id.org/agent-ontology/delegation> ;
+  owl:imports <https://w3id.org/agent-ontology/capability> ;
+  owl:imports <https://w3id.org/agent-ontology/ledger> ;
+  rdfs:seeAlso <https://eips.ethereum.org/EIPS/eip-7702> ;
+  rdfs:seeAlso <https://eips.ethereum.org/EIPS/eip-7710> ;
+  rdfs:seeAlso <https://eips.ethereum.org/EIPS/eip-4337> ;
+  rdfs:seeAlso <https://github.com/MetaMask/delegation-toolkit> ;
+  rdfs:seeAlso <https://github.com/metamask/delegation-framework> .
+
+#################################################################
+# EIP-7702: Set-code authorization tuples + delegation indicator
+#################################################################
+
+eip7702:SetCodeTransaction a owl:Class ;
+  rdfs:label "EIP-7702 Set Code Transaction" ;
+  rdfs:comment "A transaction that sets delegation indicators for EOAs using an authorization_list (EIP-7702)." ;
+  rdfs:subClassOf eth:Transaction ;
+  rdfs:subClassOf prov:Activity .
+
+eip7702:AuthorizationTuple a owl:Class ;
+  rdfs:label "EIP-7702 Authorization Tuple" ;
+  rdfs:comment "One element of EIP-7702 authorization_list: [chain_id, address, nonce, y_parity, r, s]." ;
+  rdfs:subClassOf prov:Entity .
+
+eip7702:authorization a owl:ObjectProperty ;
+  rdfs:domain eip7702:SetCodeTransaction ;
+  rdfs:range eip7702:AuthorizationTuple ;
+  rdfs:label "authorization" ;
+  rdfs:comment "Links a set-code transaction to one authorization tuple." .
+
+eip7702:authChainId a owl:DatatypeProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:label "chain_id" .
+
+eip7702:delegateAddress a owl:DatatypeProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range xsd:string ;
+  rdfs:label "address" ;
+  rdfs:comment "Hex-encoded delegate code address written into the delegation indicator (0xef0100 || address)." .
+
+eip7702:authNonce a owl:DatatypeProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:label "nonce" .
+
+eip7702:yParity a owl:DatatypeProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:label "y_parity" .
+
+eip7702:r a owl:DatatypeProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range xsd:string ;
+  rdfs:label "r" .
+
+eip7702:s a owl:DatatypeProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range xsd:string ;
+  rdfs:label "s" .
+
+eip7702:authorityAccount a owl:ObjectProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range eth:ExternalAccount ;
+  rdfs:label "authorityAccount" ;
+  rdfs:comment "The recovered authority account that is being set to a delegation indicator (conceptual binding)." .
+
+eip7702:delegatesCodeTo a owl:ObjectProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range eth:ContractAccount ;
+  rdfs:label "delegatesCodeTo" ;
+  rdfs:comment "The delegate contract whose code will be executed in the authority account context." .
+
+eip7702:delegationIndicator a owl:DatatypeProperty ;
+  rdfs:domain eip7702:AuthorizationTuple ;
+  rdfs:range xsd:string ;
+  rdfs:label "delegationIndicator" ;
+  rdfs:comment "The encoded delegation indicator bytes (e.g., 0xef0100 || address), represented as hex." .
+
+#################################################################
+# ERC-7710: Delegation redemption + permission contexts (MetaMask framework)
+#################################################################
+
+erc7710:DelegationManager a owl:Class ;
+  rdfs:label "ERC-7710 Delegation Manager" ;
+  rdfs:comment "A contract that validates delegation authority and redeems delegations to execute actions (ERC-7710)." ;
+  rdfs:subClassOf eth:ContractAccount ;
+  rdfs:subClassOf prov:Entity .
+
+erc7710:PermissionContext a owl:Class ;
+  rdfs:label "ERC-7710 Permission Context" ;
+  rdfs:comment "Opaque bytes context used to validate authority for a delegated execution (implementation-specific per manager)." ;
+  rdfs:subClassOf prov:Entity .
+
+erc7710:permissionContextBytes a owl:DatatypeProperty ;
+  rdfs:domain erc7710:PermissionContext ;
+  rdfs:range xsd:string ;
+  rdfs:label "permissionContextBytes" ;
+  rdfs:comment "Hex/base64 encoding of the permission context bytes blob." .
+
+erc7710:DelegationRedeemCall a owl:Class ;
+  rdfs:label "ERC-7710 Delegation Redeem Call" ;
+  rdfs:comment "A redemption attempt (e.g., redeemDelegations(...)) executed against a DelegationManager." ;
+  rdfs:subClassOf prov:Activity .
+
+erc7710:redeemsContext a owl:ObjectProperty ;
+  rdfs:domain erc7710:DelegationRedeemCall ;
+  rdfs:range erc7710:PermissionContext ;
+  rdfs:label "redeemsContext" .
+
+erc7710:redeemTargetManager a owl:ObjectProperty ;
+  rdfs:domain erc7710:DelegationRedeemCall ;
+  rdfs:range erc7710:DelegationManager ;
+  rdfs:label "redeemTargetManager" .
+
+#################################################################
+# Bridge: repo Delegation/Intent ↔ ERC-7710 contexts
+#################################################################
+
+eth:asPermissionContext a owl:ObjectProperty ;
+  rdfs:domain del:Delegation ;
+  rdfs:range erc7710:PermissionContext ;
+  rdfs:label "asPermissionContext" ;
+  rdfs:comment "Represents a Delegation as an ERC-7710 permission context for redemption." .
+
+eth:redeemedViaManager a owl:ObjectProperty ;
+  rdfs:domain del:Delegation ;
+  rdfs:range erc7710:DelegationManager ;
+  rdfs:label "redeemedViaManager" ;
+  rdfs:comment "Identifies the ERC-7710 manager implementation used to validate/redeem this delegation." .
+
+#################################################################
+# ERC-4337: UserOperation / EntryPoint (as needed for AA execution)
+#################################################################
+
+erc4337:EntryPoint a owl:Class ;
+  rdfs:label "ERC-4337 EntryPoint" ;
+  rdfs:comment "The ERC-4337 EntryPoint contract mediating UserOperation validation/execution." ;
+  rdfs:subClassOf eth:ContractAccount ;
+  rdfs:subClassOf prov:Entity .
+
+erc4337:UserOperation a owl:Class ;
+  rdfs:label "ERC-4337 UserOperation" ;
+  rdfs:comment "A packed user operation submitted to the ERC-4337 mempool and executed via EntryPoint." ;
+  rdfs:subClassOf prov:Entity .
+
+erc4337:Bundler a owl:Class ;
+  rdfs:label "Bundler" ;
+  rdfs:comment "A bundler role/entity that submits UserOperations for inclusion." ;
+  rdfs:subClassOf prov:Agent .
+
+erc4337:Paymaster a owl:Class ;
+  rdfs:label "Paymaster" ;
+  rdfs:comment "A paymaster that sponsors gas for a UserOperation under policy." ;
+  rdfs:subClassOf prov:Agent .
+
+erc4337:userOpSender a owl:ObjectProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range eth:Account ;
+  rdfs:label "sender" .
+
+erc4337:userOpCallData a owl:DatatypeProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range xsd:string ;
+  rdfs:label "callData" .
+
+erc4337:userOpSignature a owl:DatatypeProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range xsd:string ;
+  rdfs:label "signature" .
+
+erc4337:handledByEntryPoint a owl:ObjectProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range erc4337:EntryPoint ;
+  rdfs:label "handledByEntryPoint" .
+
+#################################################################
+# Bridge: repo Intent/Action ↔ ERC-4337 execution objects
+#################################################################
+
+eth:submittedAsUserOperation a owl:ObjectProperty ;
+  rdfs:domain [ a owl:Class ; owl:unionOf ( intent:Intent core:Action ) ] ;
+  rdfs:range erc4337:UserOperation ;
+  rdfs:label "submittedAsUserOperation" ;
+  rdfs:comment "Indicates an intent/action was submitted for on-chain execution as an ERC-4337 UserOperation." .
+
+eth:executedViaEntryPoint a owl:ObjectProperty ;
+  rdfs:domain core:Action ;
+  rdfs:range erc4337:EntryPoint ;
+  rdfs:label "executedViaEntryPoint" ;
+  rdfs:comment "Indicates an action was executed through an ERC-4337 EntryPoint." .
+
+#################################################################
+# Overlay patterns (informal, encoded as relations)
+#################################################################
+
+ethid:OnChainAuthorization a owl:Class ;
+  rdfs:label "On-chain Authorization" ;
+  rdfs:comment "A generic authorization object used to justify intent execution (e.g., delegation context, signature, or set-code authorization)." ;
+  rdfs:subClassOf prov:Entity .
+
+ethid:authorizationForIntent a owl:ObjectProperty ;
+  rdfs:domain ethid:OnChainAuthorization ;
+  rdfs:range intent:Intent ;
+  rdfs:label "authorizationForIntent" .
+
+ethid:representedByEip7702Tuple a owl:ObjectProperty ;
+  rdfs:domain ethid:OnChainAuthorization ;
+  rdfs:range eip7702:AuthorizationTuple ;
+  rdfs:label "representedByEip7702Tuple" .
+
+ethid:representedByPermissionContext a owl:ObjectProperty ;
+  rdfs:domain ethid:OnChainAuthorization ;
+  rdfs:range erc7710:PermissionContext ;
+  rdfs:label "representedByPermissionContext" .
+

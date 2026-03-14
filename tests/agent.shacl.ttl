@@ -6,6 +6,7 @@
 # Import ontology prefixes
 @prefix core: <https://w3id.org/agent-ontology/core#> .
 @prefix agent: <https://w3id.org/agent-ontology/agent#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 #
 # This SHACL file defines constraints for the Agent Ontology.
@@ -72,4 +73,23 @@ agent:PurposeRoleShape
         sh:name "Objective" ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
+    ] .
+
+# -- Ontology-level alignment checks (Agent Types) --
+agent:PersonAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode agent:Person ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue prov:Person ;
+        sh:minCount 1 ;
+    ] .
+
+agent:OrganizationAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode agent:Organization ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue prov:Organization ;
+        sh:minCount 1 ;
     ] .

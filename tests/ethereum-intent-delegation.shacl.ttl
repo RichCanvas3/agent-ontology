@@ -1,0 +1,50 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix eth: <https://w3id.org/agent-ontology/ethereum#> .
+@prefix intent: <https://w3id.org/agent-ontology/intent#> .
+@prefix del: <https://w3id.org/agent-ontology/delegation#> .
+@prefix eip7702: <https://w3id.org/agent-ontology/eip-7702#> .
+@prefix erc7710: <https://w3id.org/agent-ontology/erc-7710#> .
+@prefix erc4337: <https://w3id.org/agent-ontology/erc-4337#> .
+
+intent:IntentAuthorizationShape
+  a sh:NodeShape ;
+  sh:targetClass intent:Intent ;
+  sh:property [
+    sh:path intent:authorizedBy ;
+    sh:class del:Delegation ;
+    sh:minCount 0 ;
+  ] .
+
+eip7702:AuthorizationTupleShape
+  a sh:NodeShape ;
+  sh:targetClass eip7702:AuthorizationTuple ;
+  sh:property [
+    sh:path eip7702:delegationIndicator ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+  ] ;
+  sh:property [
+    sh:path eip7702:authorityAccount ;
+    sh:class eth:ExternalAccount ;
+    sh:minCount 0 ;
+  ] .
+
+erc7710:PermissionContextShape
+  a sh:NodeShape ;
+  sh:targetClass erc7710:PermissionContext ;
+  sh:property [
+    sh:path erc7710:permissionContextBytes ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+  ] .
+
+erc4337:UserOperationShape
+  a sh:NodeShape ;
+  sh:targetClass erc4337:UserOperation ;
+  sh:property [
+    sh:path erc4337:handledByEntryPoint ;
+    sh:minCount 0 ;
+  ] .
+

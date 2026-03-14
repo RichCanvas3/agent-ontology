@@ -8,6 +8,9 @@ This is the **umbrella entry point** for the full AI Agent Ontology. It imports 
 graph TD
   O[ontologies/ontology.ttl] --> core[core]
   O --> agent[agent]
+  O --> aiAgent[ai-agent]
+  O --> eth[ethereum]
+  O --> ethOverlay[ethereum-intent-delegation]
   O --> capability[capability]
   O --> delegation[delegation]
   O --> accountability[accountability]

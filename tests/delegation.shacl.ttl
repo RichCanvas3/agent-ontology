@@ -1,6 +1,9 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix del: <https://w3id.org/agent-ontology/delegation#> .
 @prefix core: <https://w3id.org/agent-ontology/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix epplan: <https://w3id.org/ep-plan#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # -- Shape for del:Delegation --
@@ -34,4 +37,35 @@ del:DelegationScopeShape
         sh:path del:allowedCapability ;
         sh:minCount 1 ;
         sh:nodeKind sh:IRI ;
+    ] .
+
+#################################################################
+# Ontology-level alignment checks (Delegation ↔ PROV / EP-PLAN)
+#################################################################
+
+del:DelegationAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode del:Delegation ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue prov:Delegation ;
+        sh:minCount 1 ;
+    ] .
+
+del:DelegationScopeAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode del:DelegationScope ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue epplan:Constraint ;
+        sh:minCount 1 ;
+    ] .
+
+del:ActedOnBehalfOfAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode del:actedOnBehalfOf ;
+    sh:property [
+        sh:path rdfs:subPropertyOf ;
+        sh:hasValue prov:actedOnBehalfOf ;
+        sh:minCount 1 ;
     ] .

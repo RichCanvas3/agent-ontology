@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euo pipefail # tolerate CRLF
 
 echo "Running SHACL validation..."
+
+if [ -x ".venv/bin/pyshacl" ]; then
+  PYSHACL=".venv/bin/pyshacl"
+else
+  PYSHACL="pyshacl"
+fi
 
 ontologies_list=$(ls ontologies/*.ttl | sed 's#.*/##;s/\.ttl$//' | sort)
 shacl_list=$(ls tests/*.shacl.ttl | sed 's#.*/##;s/\.shacl\.ttl$//' | sort)
@@ -25,7 +31,8 @@ while read -r name; do
   ontology="ontologies/${name}.ttl"
   shacl="tests/${name}.shacl.ttl"
   echo "Validating ${ontology} against ${shacl}..."
-  pyshacl -f turtle "${ontology}" -s "${shacl}"
+  "${PYSHACL}" -f turtle "${ontology}" -s "${shacl}"
 done <<< "${shacl_list}"
 
 echo "SHACL validation successful."
+

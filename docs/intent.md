@@ -24,6 +24,16 @@ Defines how agents express **purpose** in a structured way, and how intents yiel
 
 `intent:loggedAs` points to `ledger:RuntimeLedgerRecord`, which is not currently defined in `ontologies/ledger.ttl` (the closest defined class is `ledger:RuntimeLedgerEvent`).
 
+### Upper ontology mappings
+
+- **PROV-O**
+  - `intent:Intent ⊑ prov:Plan` (via `core:Intent`)
+  - `intent:IntentParameter ⊑ prov:Entity`
+- **P-PLAN / EP-PLAN**
+  - `intent:Intent ⊑ pplan:Plan` and `⊑ epplan:Plan`
+  - `intent:IntentParameter ⊑ pplan:Variable` and `⊑ epplan:Variable`
+  - `intent:hasParameter ≡ inverse(pplan:isVariableOfPlan)` (i.e., parameters are plan variables)
+
 ### Hierarchy diagram
 
 ```mermaid

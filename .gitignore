@@ -1,3 +1,25 @@
 .env
 result
 dist
+
+# Python virtualenv + caches
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# direnv
+.direnv/
+
+# Editors/OS
+.vscode/
+.idea/
+*~
+*.swp
+*.swo
+.DS_Store

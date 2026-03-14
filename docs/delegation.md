@@ -23,6 +23,14 @@ Defines **structured transfer of authority** between agents, including actor rol
   - `del:validFrom`, `del:validUntil`
   - `del:delegationId`, `del:note`
 
+### Upper ontology mappings
+
+- **PROV-O**
+  - `del:Delegation ⊑ prov:Delegation`
+  - `del:actedOnBehalfOf ⊑ prov:actedOnBehalfOf` (entailed via a property-chain from `del:Delegation`)
+- **EP-PLAN**
+  - `del:DelegationScope ⊑ epplan:Constraint`
+
 ### Hierarchy diagram
 
 ```mermaid

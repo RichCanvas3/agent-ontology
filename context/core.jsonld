@@ -2,12 +2,16 @@
   "@context": {
     "@vocab": "https://w3id.org/agent-ontology/core#",
     "core": "https://w3id.org/agent-ontology/core#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "pplan": "http://purl.org/net/p-plan#",
+    "epplan": "https://w3id.org/ep-plan#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "id": "@id",
     "type": "@type",
 
     "timestamp": { "@id": "core:timestamp", "@type": "xsd:dateTime" },
-    "description": { "@id": "core:description", "@type": "xsd:string" }
+    "description": { "@id": "core:description", "@type": "xsd:string" },
+    "wasAssociatedWith": { "@id": "core:wasAssociatedWith", "@type": "@id" }
   }
 }

@@ -7,6 +7,9 @@ This folder contains human-readable documentation for each ontology module in `o
 - `ontologies/ontology.ttl` → `docs/ontology.md` (umbrella imports)
 - `ontologies/core.ttl` → `docs/core.md`
 - `ontologies/agent.ttl` → `docs/agent.md`
+- `ontologies/ai-agent.ttl` → `docs/ai-agent.md`
+- `ontologies/ethereum.ttl` → `docs/ethereum.md`
+- `ontologies/ethereum-intent-delegation.ttl` → `docs/ethereum-intent-delegation.md`
 - `ontologies/agent-profile.ttl` → `docs/agent-profile.md`
 - `ontologies/identity.ttl` → `docs/identity.md`
 - `ontologies/capability.ttl` → `docs/capability.md`

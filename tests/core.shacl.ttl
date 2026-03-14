@@ -1,7 +1,13 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 @prefix core: <https://w3id.org/agent-ontology/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pplan: <http://purl.org/net/p-plan#> .
+@prefix epplan: <https://w3id.org/ep-plan#> .
 
 core:AgentShape
     a sh:NodeShape ;
@@ -93,4 +99,106 @@ core:ArtifactShape
     sh:property [
         sh:path core:description ;
         sh:datatype xsd:string ;
+    ] .
+
+#################################################################
+# Ontology-level alignment checks (Core ↔ PROV / P-PLAN / EP-PLAN)
+#################################################################
+
+core:IntentAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode core:Intent ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue prov:Plan ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue pplan:Plan ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue epplan:Plan ;
+        sh:minCount 1 ;
+    ] .
+
+core:ActionAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode core:Action ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue prov:Activity ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue pplan:Activity ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue epplan:Activity ;
+        sh:minCount 1 ;
+    ] .
+
+core:ArtifactAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode core:Artifact ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue prov:Entity ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue pplan:Entity ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue epplan:Entity ;
+        sh:minCount 1 ;
+    ] .
+
+core:TaskAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode core:Task ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue pplan:Step ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdfs:subClassOf ;
+        sh:hasValue epplan:Step ;
+        sh:minCount 1 ;
+    ] .
+
+core:ProducesArtifactAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode core:producesArtifact ;
+    sh:property [
+        sh:path rdfs:subPropertyOf ;
+        sh:hasValue prov:generated ;
+        sh:minCount 1 ;
+    ] .
+
+core:RecordedInAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode core:recordedIn ;
+    sh:property [
+        sh:path rdfs:subPropertyOf ;
+        sh:hasValue prov:generated ;
+        sh:minCount 1 ;
+    ] .
+
+core:TimestampAlignmentShape
+    a sh:NodeShape ;
+    sh:targetNode core:timestamp ;
+    sh:property [
+        sh:path rdfs:subPropertyOf ;
+        sh:hasValue prov:generatedAtTime ;
+        sh:minCount 1 ;
     ] .

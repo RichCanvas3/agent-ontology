@@ -1,0 +1,15 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix ai: <https://w3id.org/agent-ontology/ai-agent#> .
+@prefix core: <https://w3id.org/agent-ontology/core#> .
+
+ai:AIAgentShape
+  a sh:NodeShape ;
+  sh:targetClass ai:AIAgent ;
+  sh:property [
+    sh:path rdfs:subClassOf ;
+    sh:hasValue core:Agent ;
+    sh:minCount 1 ;
+  ] .
+

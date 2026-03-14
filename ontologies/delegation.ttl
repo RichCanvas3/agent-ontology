@@ -4,6 +4,8 @@
 @prefix agent: <https://w3id.org/agent-ontology/agent#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix epplan: <https://w3id.org/ep-plan#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -21,7 +23,9 @@
   dcterms:modified "2025-11-20"^^xsd:date ;
   owl:versionInfo "0.3.0" ;
   owl:imports <https://w3id.org/agent-ontology/core> ;
-  owl:imports <https://w3id.org/agent-ontology/capability> .
+  owl:imports <https://w3id.org/agent-ontology/capability> ;
+  owl:imports <http://www.w3.org/ns/prov#> ;
+  owl:imports <https://w3id.org/ep-plan> .
 
 
 #################################################################
@@ -35,6 +39,7 @@ del:AgentRelationship a owl:Class ;
 del:Delegation a owl:Class ;
     rdfs:subClassOf core:Delegation ;
     rdfs:subClassOf del:AgentRelationship ;
+    rdfs:subClassOf prov:Delegation ;
     rdfs:label "Delegation" ;
     rdfs:comment """
     Represents a structured transfer of authority, allowing one Agent to act 
@@ -58,12 +63,21 @@ del:delegatesTo a owl:ObjectProperty ;
     rdfs:label "delegatesTo" ;
     rdfs:comment "Agent receiving delegated authority." .
 
+del:actedOnBehalfOf a owl:ObjectProperty ;
+    rdfs:domain core:Agent ;
+    rdfs:range core:Agent ;
+    rdfs:subPropertyOf prov:actedOnBehalfOf ;
+    owl:propertyChainAxiom ( [ owl:inverseOf del:delegatesTo ] del:delegatedBy ) ;
+    rdfs:label "actedOnBehalfOf" ;
+    rdfs:comment "PROV-compatible view: the delegate acts on behalf of the delegator (entailed from a del:Delegation)." .
+
 
 #################################################################
 # Delegation Scope Model
 #################################################################
 
 del:DelegationScope a owl:Class ;
+    rdfs:subClassOf epplan:Constraint ;
     rdfs:label "DelegationScope" ;
     rdfs:comment """
     Defines the semantic boundaries of delegated authority, including 
