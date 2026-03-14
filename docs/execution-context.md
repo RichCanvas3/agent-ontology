@@ -35,13 +35,13 @@ classDiagram
   class rl["ctx:RateLimit"]
   class budget["ctx:Budget"]
 
-  execCtx --> env : ctx:hasEnvironment
-  execCtx --> secCtx : ctx:hasSecurityContext
-  execCtx --> inState : ctx:inputState
-  execCtx --> outState : ctx:outputState
-  env --> rc : ctx:hasResourceConstraint
-  env --> rl : ctx:hasRateLimit
-  env --> budget : ctx:hasBudget
+  execCtx --> env : hasEnvironment
+  execCtx --> secCtx : hasSecurityContext
+  execCtx --> inState : inputState
+  execCtx --> outState : outputState
+  env --> rc : hasResourceConstraint
+  env --> rl : hasRateLimit
+  env --> budget : hasBudget
 ```
 
 ### Relationship diagram

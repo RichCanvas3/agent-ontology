@@ -35,9 +35,9 @@ classDiagram
   class capParameter["cap:Parameter"]
 
   coreCapability <|-- capCapability
-  capCapability --> capSkill : cap:hasSkill
-  capSkill --> capParameter : cap:hasParameter
-  capSkill --> capSkill : cap:dependsOnSkill
+  capCapability --> capSkill : hasSkill
+  capSkill --> capParameter : hasParameter
+  capSkill --> capSkill : dependsOnSkill
 ```
 
 ### Relationship diagram

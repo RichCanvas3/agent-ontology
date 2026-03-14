@@ -36,9 +36,9 @@ classDiagram
 
   coreDelegation <|-- delDelegation
   delAgentRel <|-- delDelegation
-  delDelegation --> delScope : del:delegationScope
-  delScope --> capCapability : del:allowedCapability
-  delScope --> coreIntent : del:intentConstraint
+  delDelegation --> delScope : delegationScope
+  delScope --> capCapability : allowedCapability
+  delScope --> coreIntent : intentConstraint
 ```
 
 ### Relationship diagram

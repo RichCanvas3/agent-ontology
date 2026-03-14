@@ -20,6 +20,10 @@ Defines how agents express **purpose** in a structured way, and how intents yiel
 - **Datatype properties**
   - `intent:paramName`, `intent:paramType`, `intent:paramValue`
 
+### Note
+
+`intent:loggedAs` points to `ledger:RuntimeLedgerRecord`, which is not currently defined in `ontologies/ledger.ttl` (the closest defined class is `ledger:RuntimeLedgerEvent`).
+
 ### Hierarchy diagram
 
 ```mermaid
@@ -32,9 +36,9 @@ classDiagram
   class actionType["intent:ActionType"]
 
   coreIntent <|-- intentIntent
-  intentIntent --> intentType : intent:hasIntentType
-  intentIntent --> intentParam : intent:hasParameter
-  coreAction --> actionType : intent:hasActionType
+  intentIntent --> intentType : hasIntentType
+  intentIntent --> intentParam : hasParameter
+  coreAction --> actionType : hasActionType
 ```
 
 ### Relationship diagram
