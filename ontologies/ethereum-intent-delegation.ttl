@@ -133,6 +133,7 @@ erc7710:permissionContextBytes a owl:DatatypeProperty ;
 erc7710:DelegationRedeemCall a owl:Class ;
   rdfs:label "ERC-7710 Delegation Redeem Call" ;
   rdfs:comment "A redemption attempt (e.g., redeemDelegations(...)) executed against a DelegationManager." ;
+  rdfs:subClassOf core:Action ;
   rdfs:subClassOf prov:Activity .
 
 erc7710:redeemsContext a owl:ObjectProperty ;
@@ -164,47 +165,9 @@ eth:redeemedViaManager a owl:ObjectProperty ;
 #################################################################
 # ERC-4337: UserOperation / EntryPoint (as needed for AA execution)
 #################################################################
-
-erc4337:EntryPoint a owl:Class ;
-  rdfs:label "ERC-4337 EntryPoint" ;
-  rdfs:comment "The ERC-4337 EntryPoint contract mediating UserOperation validation/execution." ;
-  rdfs:subClassOf eth:ContractAccount ;
-  rdfs:subClassOf prov:Entity .
-
-erc4337:UserOperation a owl:Class ;
-  rdfs:label "ERC-4337 UserOperation" ;
-  rdfs:comment "A packed user operation submitted to the ERC-4337 mempool and executed via EntryPoint." ;
-  rdfs:subClassOf prov:Entity .
-
-erc4337:Bundler a owl:Class ;
-  rdfs:label "Bundler" ;
-  rdfs:comment "A bundler role/entity that submits UserOperations for inclusion." ;
-  rdfs:subClassOf prov:Agent .
-
-erc4337:Paymaster a owl:Class ;
-  rdfs:label "Paymaster" ;
-  rdfs:comment "A paymaster that sponsors gas for a UserOperation under policy." ;
-  rdfs:subClassOf prov:Agent .
-
-erc4337:userOpSender a owl:ObjectProperty ;
-  rdfs:domain erc4337:UserOperation ;
-  rdfs:range eth:Account ;
-  rdfs:label "sender" .
-
-erc4337:userOpCallData a owl:DatatypeProperty ;
-  rdfs:domain erc4337:UserOperation ;
-  rdfs:range xsd:string ;
-  rdfs:label "callData" .
-
-erc4337:userOpSignature a owl:DatatypeProperty ;
-  rdfs:domain erc4337:UserOperation ;
-  rdfs:range xsd:string ;
-  rdfs:label "signature" .
-
-erc4337:handledByEntryPoint a owl:ObjectProperty ;
-  rdfs:domain erc4337:UserOperation ;
-  rdfs:range erc4337:EntryPoint ;
-  rdfs:label "handledByEntryPoint" .
+#
+# NOTE: ERC-4337 primitives are defined in `ontologies/ethereum.ttl` (first-class Ethereum layer).
+# This overlay only defines bridges from core intent/delegation to those ERC-4337 objects.
 
 #################################################################
 # Bridge: repo Intent/Action ↔ ERC-4337 execution objects

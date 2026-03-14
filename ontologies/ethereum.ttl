@@ -1,6 +1,9 @@
 @prefix eth: <https://w3id.org/agent-ontology/ethereum#> .
 @prefix core: <https://w3id.org/agent-ontology/core#> .
+@prefix agent: <https://w3id.org/agent-ontology/agent#> .
 @prefix ethon: <http://ethon.consensys.net/> .
+@prefix erc4337: <https://w3id.org/agent-ontology/erc-4337#> .
+@prefix eip1271: <https://w3id.org/agent-ontology/eip-1271#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -16,10 +19,11 @@
   dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
   dcterms:rightsHolder "Semantic Agent Communication Community Group" ;
   dcterms:creator "SAC-CG (derived work; EthOn-aligned)" ;
-  dcterms:description "Bridges core agent semantics to Ethereum primitives by importing EthOn and defining minimal account/transaction properties for higher-level intent and delegation overlays." ;
+  dcterms:description "Bridges core agent semantics to Ethereum primitives by importing EthOn and defining minimal account/transaction properties plus first-class account abstraction (ERC-4337) and contract signature validation (EIP-1271) concepts." ;
   dcterms:modified "2026-03-14"^^xsd:date ;
   owl:versionInfo "0.1.0" ;
   owl:imports <https://w3id.org/agent-ontology/core> ;
+  owl:imports <https://w3id.org/agent-ontology/agent> ;
   owl:imports <http://ethon.consensys.net/0/> .
 
 #################################################################
@@ -45,10 +49,16 @@ eth:ContractAccount a owl:Class ;
   rdfs:subClassOf eth:Account ;
   rdfs:subClassOf ethon:ContractAccount .
 
+eth:SmartAccount a owl:Class ;
+  rdfs:label "Smart Account" ;
+  rdfs:comment "A contract account intended to act as an account abstraction wallet/agent controller (ERC-4337-style smart account), typically supporting contract-based validation (e.g., EIP-1271) and programmable authorization." ;
+  rdfs:subClassOf eth:ContractAccount .
+
 eth:Transaction a owl:Class ;
   rdfs:label "Ethereum Transaction" ;
-  rdfs:comment "A transaction aligned to EthOn's Tx concept." ;
+  rdfs:comment "A transaction aligned to EthOn's Tx concept. Modeled as a core:Action to integrate directly with the agent action/trace/context/ledger layers." ;
   rdfs:subClassOf ethon:Tx ;
+  rdfs:subClassOf core:Action ;
   rdfs:subClassOf prov:Activity .
 
 #################################################################
@@ -103,4 +113,103 @@ eth:signature a owl:DatatypeProperty ;
   rdfs:range xsd:string ;
   rdfs:label "signature" ;
   rdfs:comment "Transaction signature encoding (implementation-specific)." .
+
+#################################################################
+# ERC-4337: Account Abstraction (first-class Ethereum layer)
+#################################################################
+
+erc4337:EntryPoint a owl:Class ;
+  rdfs:label "ERC-4337 EntryPoint" ;
+  rdfs:comment "The ERC-4337 EntryPoint contract mediating UserOperation validation/execution." ;
+  rdfs:subClassOf eth:ContractAccount ;
+  rdfs:subClassOf prov:Entity .
+
+erc4337:UserOperation a owl:Class ;
+  rdfs:label "ERC-4337 UserOperation" ;
+  rdfs:comment "A packed user operation submitted to the ERC-4337 mempool and executed via EntryPoint." ;
+  rdfs:subClassOf prov:Entity .
+
+erc4337:Bundler a owl:Class ;
+  rdfs:label "Bundler" ;
+  rdfs:comment "A bundler role/entity that submits UserOperations for inclusion." ;
+  rdfs:subClassOf prov:Agent ;
+  rdfs:subClassOf core:Agent ;
+  rdfs:subClassOf agent:SoftwareAgent .
+
+erc4337:Paymaster a owl:Class ;
+  rdfs:label "Paymaster" ;
+  rdfs:comment "A paymaster that sponsors gas for a UserOperation under policy." ;
+  rdfs:subClassOf prov:Agent ;
+  rdfs:subClassOf core:Agent .
+
+erc4337:userOpSender a owl:ObjectProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range eth:Account ;
+  rdfs:label "sender" .
+
+erc4337:userOpNonce a owl:DatatypeProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range xsd:nonNegativeInteger ;
+  rdfs:label "nonce" .
+
+erc4337:userOpCallData a owl:DatatypeProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range xsd:string ;
+  rdfs:label "callData" .
+
+erc4337:userOpSignature a owl:DatatypeProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range xsd:string ;
+  rdfs:label "signature" .
+
+erc4337:handledByEntryPoint a owl:ObjectProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range erc4337:EntryPoint ;
+  rdfs:label "handledByEntryPoint" .
+
+erc4337:targetsSmartAccount a owl:ObjectProperty ;
+  rdfs:domain erc4337:UserOperation ;
+  rdfs:range eth:SmartAccount ;
+  rdfs:label "targetsSmartAccount" ;
+  rdfs:comment "Convenience link: the user operation targets a smart account (AA wallet). Often the same as sender for ERC-4337 accounts." .
+
+#################################################################
+# EIP-1271: Contract signature validation (first-class Ethereum layer)
+#################################################################
+
+eip1271:SignatureValidationCall a owl:Class ;
+  rdfs:label "EIP-1271 Signature Validation Call" ;
+  rdfs:comment "An evaluation of a signature by a contract account (EIP-1271 isValidSignature), typically used to validate off-chain signatures for smart accounts." ;
+  rdfs:subClassOf core:Action ;
+  rdfs:subClassOf prov:Activity .
+
+eip1271:validatedBy a owl:ObjectProperty ;
+  rdfs:domain eip1271:SignatureValidationCall ;
+  rdfs:range eth:ContractAccount ;
+  rdfs:label "validatedBy" ;
+  rdfs:comment "The contract account performing signature validation (EIP-1271 implementer)." .
+
+eip1271:messageHash a owl:DatatypeProperty ;
+  rdfs:domain eip1271:SignatureValidationCall ;
+  rdfs:range xsd:string ;
+  rdfs:label "messageHash" ;
+  rdfs:comment "The message hash (bytes32) presented for validation, encoded as hex." .
+
+eip1271:signatureBytes a owl:DatatypeProperty ;
+  rdfs:domain eip1271:SignatureValidationCall ;
+  rdfs:range xsd:string ;
+  rdfs:label "signatureBytes" ;
+  rdfs:comment "The signature bytes presented for validation, encoded as hex/base64." .
+
+eip1271:returnsMagicValue a owl:DatatypeProperty ;
+  rdfs:domain eip1271:SignatureValidationCall ;
+  rdfs:range xsd:string ;
+  rdfs:label "returnsMagicValue" ;
+  rdfs:comment "The 4-byte magic value returned by isValidSignature, encoded as hex (e.g., 0x1626ba7e on success)." .
+
+eip1271:isValid a owl:DatatypeProperty ;
+  rdfs:domain eip1271:SignatureValidationCall ;
+  rdfs:range xsd:boolean ;
+  rdfs:label "isValid" ;
+  rdfs:comment "Convenience boolean indicating whether the signature was accepted (typically derived from returnsMagicValue)." .
 

@@ -189,15 +189,13 @@ Primary module:
 
 ### AI Agent as a specialization of software agent + software application/service
 
-PROV-O gives you `prov:SoftwareAgent`, but no explicit “AI agent” class and no bridge to software catalog vocabularies. This repo adds:
+PROV-O gives you `prov:SoftwareAgent`, but no explicit “AI agent” class. This repo adds:
 
 - `ai:AIAgent ⊑ core:Agent` and `⊑ prov:SoftwareAgent`
-- plus interoperability with `schema:SoftwareApplication` and `schema:Service`
 
 In practice, this gives you a clean “AI agent” class that is:
 
 - semantically compatible with provenance (`prov:SoftwareAgent`),
-- compatible with software catalogs/registries (`schema:SoftwareApplication`, `schema:Service`),
 - and still inherits the repo’s core agent semantics (`core:Agent`).
 
 Primary module:

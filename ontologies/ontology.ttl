@@ -26,5 +26,4 @@
   owl:imports <https://w3id.org/agent-ontology/payment> ;
   owl:imports <https://w3id.org/agent-ontology/economic> ;
   owl:imports <https://w3id.org/agent-ontology/lifecycle> ;
-  owl:imports <https://w3id.org/agent-ontology/contract> ;
-  owl:imports <https://w3id.org/agent-ontology/schema-org-mapping> .
+  owl:imports <https://w3id.org/agent-ontology/contract> .

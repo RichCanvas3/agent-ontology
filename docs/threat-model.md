@@ -20,8 +20,9 @@ Defines a minimal vocabulary for **semantic interoperability and threat modeling
   - `tm:delegatesTask` (Agent → Task)
   - `tm:IntentAlignsWithTask` (Intent → Task)
 - **Axioms (selected)**
-  - `tm:hasCapability rdfs:subPropertyOf tm:requiresCapability`
   - `tm:CriticalCapability owl:disjointWith tm:RestrictedCapability`
+ - **Recommended checks (selected)**
+  - capability misrepresentation checks are expressed as **SPARQL/SHACL patterns** (see queries below) rather than ontology entailments
 
 ### Hierarchy diagram
 

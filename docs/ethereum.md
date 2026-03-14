@@ -1,6 +1,6 @@
 ## Ethereum Ontology Bridge (`ontologies/ethereum.ttl`)
 
-Provides a minimal Ethereum vocabulary aligned to **EthOn** and grounded in **PROV-O**. This module exists to give your agent ontology a stable base for expressing *accounts, transactions, and basic transaction fields* before layering on EIP/ERC-specific semantics.
+Provides an Ethereum vocabulary aligned to **EthOn** and grounded in **PROV-O**, including first-class **Smart Accounts**, **ERC-4337 Account Abstraction** primitives, and **EIP-1271** contract signature validation. This module exists to give your agent ontology a stable base for expressing *accounts, transactions, user operations, and signature validation* before layering on more specialized intent/delegation overlays.
 
 ### Key terms
 
@@ -8,7 +8,10 @@ Provides a minimal Ethereum vocabulary aligned to **EthOn** and grounded in **PR
   - `eth:Account` (aligned to `ethon:Account`, and treated as `prov:Entity`)
   - `eth:ExternalAccount` (EOA)
   - `eth:ContractAccount` (smart contract)
-  - `eth:Transaction` (aligned to `ethon:Tx`, and treated as `prov:Activity`)
+  - `eth:SmartAccount` (account abstraction wallet/controller; contract account)
+  - `eth:Transaction` (aligned to `ethon:Tx`, treated as `prov:Activity`, and also a `core:Action`)
+  - `erc4337:UserOperation`, `erc4337:EntryPoint` (ERC-4337 AA primitives)
+  - `eip1271:SignatureValidationCall` (EIP-1271 validation activity)
 - **Datatype properties**
   - `eth:address`, `eth:value`, `eth:data`, `eth:nonce`, `eth:chainId`, `eth:signature`
 - **Object properties**
@@ -21,10 +24,12 @@ classDiagram
   class account["eth:Account"]
   class eoa["eth:ExternalAccount"]
   class contract["eth:ContractAccount"]
+  class smart["eth:SmartAccount"]
   class tx["eth:Transaction"]
 
   account <|-- eoa
   account <|-- contract
+  contract <|-- smart
 ```
 
 ### Relationship diagram
@@ -36,6 +41,13 @@ graph TD
   TX -->|eth:value| V[(value)]
   TX -->|eth:data| D[(data)]
   TX -->|eth:chainId| CID[(chainId)]
+
+  UO[erc4337:UserOperation] -->|erc4337:sender| SA[eth:SmartAccount]
+  UO -->|erc4337:handledByEntryPoint| EP[erc4337:EntryPoint]
+
+  VC[eip1271:SignatureValidationCall] -->|eip1271:validatedBy| SA
+  VC -->|eip1271:messageHash| H[(hash)]
+  VC -->|eip1271:signatureBytes| SIG[(sig)]
 ```
 
 ### SPARQL queries

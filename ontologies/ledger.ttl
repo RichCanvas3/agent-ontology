@@ -35,6 +35,7 @@
 
 ledger:LedgerEvent a owl:Class ;
     rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf core:TraceEvent ;
     rdfs:label "LedgerEvent" ;
     rdfs:comment "Canonical semantic event in append-only ledger stream." .
 
@@ -105,9 +106,16 @@ ledger:verifiedBy a owl:DatatypeProperty ;
 
 ledger:actor a owl:ObjectProperty ;
     rdfs:domain ledger:LedgerEvent ;
-    rdfs:range agent:Agent ;
+    rdfs:range core:Agent ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
     rdfs:comment "Agent or principal responsible for the event." .
+
+ledger:runtimeActor a owl:ObjectProperty ;
+    rdfs:domain ledger:RuntimeLedgerEvent ;
+    rdfs:range agent:SoftwareAgent ;
+    rdfs:subPropertyOf ledger:actor ;
+    rdfs:label "runtimeActor" ;
+    rdfs:comment "The software agent that directly executed the runtime action (distinct from the responsible principal in ledger:actor)." .
 
 ledger:delegation a owl:ObjectProperty ;
     rdfs:domain ledger:LedgerEvent ;

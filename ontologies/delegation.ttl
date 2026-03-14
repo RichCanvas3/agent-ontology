@@ -67,9 +67,8 @@ del:actedOnBehalfOf a owl:ObjectProperty ;
     rdfs:domain core:Agent ;
     rdfs:range core:Agent ;
     rdfs:subPropertyOf prov:actedOnBehalfOf ;
-    owl:propertyChainAxiom ( [ owl:inverseOf del:delegatesTo ] del:delegatedBy ) ;
     rdfs:label "actedOnBehalfOf" ;
-    rdfs:comment "PROV-compatible view: the delegate acts on behalf of the delegator (entailed from a del:Delegation)." .
+    rdfs:comment "PROV-compatible relation: the delegate acts on behalf of the delegator." .
 
 
 #################################################################

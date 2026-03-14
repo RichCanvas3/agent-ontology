@@ -1,5 +1,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ledger: <https://w3id.org/agent-ontology/ledger#> .
+@prefix agent: <https://w3id.org/agent-ontology/agent#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # -- Shape for ledger:LedgerEvent --
@@ -22,5 +23,16 @@ ledger:LedgerEventShape
         sh:path ledger:actor ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] .
+
+# -- Additional constraint: runtime events should name a software runtime actor --
+ledger:RuntimeLedgerEventShape
+    a sh:NodeShape ;
+    sh:targetClass ledger:RuntimeLedgerEvent ;
+    sh:property [
+        sh:path ledger:runtimeActor ;
+        sh:minCount 1 ;
+        sh:class agent:SoftwareAgent ;
         sh:nodeKind sh:IRI ;
     ] .

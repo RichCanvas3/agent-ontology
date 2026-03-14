@@ -36,6 +36,7 @@
 
 acc:AccountabilityEvent a owl:Class ;
     rdfs:subClassOf prov:Entity ;
+    rdfs:subClassOf core:TraceEvent ;
     rdfs:label "AccountabilityEvent" ;
     rdfs:comment "Evaluative record assessing correctness, authorization, and compliance for an executed action." .
 
@@ -72,7 +73,7 @@ acc:timestamp a owl:DatatypeProperty ;
 
 acc:actor a owl:ObjectProperty ;
     rdfs:domain acc:AccountabilityEvent ;
-    rdfs:range agent:Agent ;
+    rdfs:range core:Agent ;
     rdfs:subPropertyOf prov:wasAttributedTo .
 
 acc:action a owl:ObjectProperty ;
@@ -108,7 +109,7 @@ acc:responsibility a owl:ObjectProperty ;
 
 acc:assignedTo a owl:ObjectProperty ;
     rdfs:domain acc:ResponsibilityAttribution ;
-    rdfs:range agent:Agent .
+    rdfs:range core:Agent .
 
 acc:rationale a owl:DatatypeProperty ;
     rdfs:domain acc:ResponsibilityAttribution ;

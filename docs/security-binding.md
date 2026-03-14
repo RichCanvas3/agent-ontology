@@ -11,11 +11,11 @@ Defines the **trust chain** from identity to execution evidence: DID → key mat
   - `sec:CriticalCapability`, `sec:RestrictedCapability`
   - `sec:DataHandlingPolicy`, `sec:AccessControlRule`
 - **Object properties**
-  - `sec:hasKeyMaterial` (domain `agent:Agent`)
+  - `sec:hasKeyMaterial` (domain `core:Agent`)
   - `sec:keyType` (KeyMaterial → KeyType)
   - `sec:anchoredBy` (KeyMaterial → HardwareRootOfTrust)
   - `sec:verifiedBy` (HardwareRootOfTrust → TrustAnchor)
-  - `sec:signsRecord` (KeyMaterial → `ledger:LedgerRecord`)
+  - `sec:signsRecord` (KeyMaterial → `ledger:LedgerEvent`)
   - `sec:IntentAlignsWithTask` (Intent → Task)
   - `sec:hasDataHandlingPolicy` (domain `core:ExecutionContext`)
   - `sec:hasAccessControlRule` (domain `core:ExecutionContext`)
@@ -24,15 +24,11 @@ Defines the **trust chain** from identity to execution evidence: DID → key mat
   - `sec:policyURI`, `sec:encryptionRequired`
   - `sec:allowedAction`, `sec:restrictedToRole`
 
-### Note
-
-`sec:signsRecord` uses range `ledger:LedgerRecord`, which is referenced by `ontologies/security-binding.ttl` but not currently defined in `ontologies/ledger.ttl` (which defines `ledger:LedgerEvent` / `ledger:RuntimeLedgerEvent` / `ledger:GovernanceLedgerEvent`).
-
 ### Hierarchy diagram
 
 ```mermaid
 classDiagram
-  class agent["agent:Agent"]
+  class agent["core:Agent"]
   class key["sec:KeyMaterial"]
   class hw["sec:HardwareRootOfTrust"]
   class ta["sec:TrustAnchor"]
@@ -48,11 +44,11 @@ classDiagram
 
 ```mermaid
 graph TD
-  A[agent:Agent] -->|sec:hasKeyMaterial| KM[sec:KeyMaterial]
+  A[core:Agent] -->|sec:hasKeyMaterial| KM[sec:KeyMaterial]
   KM -->|sec:keyType| KT[sec:KeyType]
   KM -->|sec:anchoredBy| HW[sec:HardwareRootOfTrust]
   HW -->|sec:verifiedBy| TA[sec:TrustAnchor]
-  KM -->|sec:signsRecord| LE[ledger:LedgerRecord]
+  KM -->|sec:signsRecord| LE[ledger:LedgerEvent]
   EC[core:ExecutionContext] -->|sec:hasDataHandlingPolicy| POL[sec:DataHandlingPolicy]
   EC -->|sec:hasAccessControlRule| ACR[sec:AccessControlRule]
 ```
@@ -61,11 +57,11 @@ graph TD
 
 ```sparql
 PREFIX sec: <https://w3id.org/agent-ontology/security-binding#>
-PREFIX agent: <https://w3id.org/agent-ontology/agent#>
+PREFIX core: <https://w3id.org/agent-ontology/core#>
 
 # 1) Agents with key material but missing hardware anchors
 SELECT ?agent ?km WHERE {
-  ?agent a agent:Agent ; sec:hasKeyMaterial ?km .
+  ?agent a core:Agent ; sec:hasKeyMaterial ?km .
   FILTER NOT EXISTS { ?km sec:anchoredBy ?hw . }
 }
 ```
@@ -102,7 +98,7 @@ gc:tee-az-1 a sec:HardwareRootOfTrust ;
 
 gc:trust-anchor-ecfa a sec:TrustAnchor .
 
-gc:ledger-record-0001 a ledger:LedgerRecord .
+gc:ledger-record-0001 a ledger:LedgerEvent .
 gc:secp256k1 a sec:KeyType .
 ```
 

@@ -30,6 +30,7 @@
     "verifiedBy": "ledger:verifiedBy",
 
     "actor": { "@id": "ledger:actor", "@type": "@id" },
+    "runtimeActor": { "@id": "ledger:runtimeActor", "@type": "@id" },
     "delegation": { "@id": "ledger:delegation", "@type": "@id" },
 
     "action": { "@id": "ledger:action", "@type": "@id" },

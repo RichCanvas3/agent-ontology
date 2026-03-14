@@ -5,6 +5,8 @@
     "core": "https://w3id.org/agent-ontology/core#",
     "prov": "http://www.w3.org/ns/prov#",
     "ethon": "http://ethon.consensys.net/",
+    "erc4337": "https://w3id.org/agent-ontology/erc-4337#",
+    "eip1271": "https://w3id.org/agent-ontology/eip-1271#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
     "id": "@id",
@@ -13,7 +15,11 @@
     "Account": "eth:Account",
     "ExternalAccount": "eth:ExternalAccount",
     "ContractAccount": "eth:ContractAccount",
+    "SmartAccount": "eth:SmartAccount",
     "Transaction": "eth:Transaction",
+
+    "EntryPoint": "erc4337:EntryPoint",
+    "UserOperation": "erc4337:UserOperation",
 
     "address": {
       "@id": "eth:address",

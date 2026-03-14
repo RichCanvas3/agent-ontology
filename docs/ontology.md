@@ -24,7 +24,6 @@ graph TD
   O --> economic[economic]
   O --> lifecycle[lifecycle]
   O --> contract[contract]
-  O --> schemaMap[schema-org-mapping]
 ```
 
 ### SPARQL queries

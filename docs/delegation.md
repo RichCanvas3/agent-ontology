@@ -27,7 +27,7 @@ Defines **structured transfer of authority** between agents, including actor rol
 
 - **PROV-O**
   - `del:Delegation ⊑ prov:Delegation`
-  - `del:actedOnBehalfOf ⊑ prov:actedOnBehalfOf` (entailed via a property-chain from `del:Delegation`)
+  - `del:actedOnBehalfOf ⊑ prov:actedOnBehalfOf` (assert explicitly, or derive from action/activity evidence)
 - **EP-PLAN**
   - `del:DelegationScope ⊑ epplan:Constraint`
 

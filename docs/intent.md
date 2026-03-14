@@ -16,13 +16,9 @@ Defines how agents express **purpose** in a structured way, and how intents yiel
   - `intent:producesAction` (Intent → `core:Action`)
   - `intent:hasActionType` (Action → ActionType)
   - `intent:executedIn` (Action → `core:ExecutionContext`)
-  - `intent:loggedAs` (Action → `ledger:RuntimeLedgerRecord`)
+  - `intent:loggedAs` (Action → `ledger:RuntimeLedgerEvent`)
 - **Datatype properties**
   - `intent:paramName`, `intent:paramType`, `intent:paramValue`
-
-### Note
-
-`intent:loggedAs` points to `ledger:RuntimeLedgerRecord`, which is not currently defined in `ontologies/ledger.ttl` (the closest defined class is `ledger:RuntimeLedgerEvent`).
 
 ### Upper ontology mappings
 
@@ -61,7 +57,7 @@ graph TD
   I -->|intent:producesAction| A[core:Action]
   A -->|intent:hasActionType| AT[intent:ActionType]
   A -->|intent:executedIn| EC[core:ExecutionContext]
-  A -->|intent:loggedAs| L[ledger:RuntimeLedgerRecord]
+  A -->|intent:loggedAs| L[ledger:RuntimeLedgerEvent]
 ```
 
 ### SPARQL queries

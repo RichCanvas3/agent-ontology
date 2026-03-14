@@ -9,8 +9,6 @@ Defines `ai:AIAgent` as a **software agent** (PROV-O) that also instantiates the
 - **Key superclass alignments**
   - `core:Agent`
   - `prov:SoftwareAgent`
-  - `schema:SoftwareApplication`
-  - `schema:Service`
 
 ### Hierarchy diagram
 
@@ -18,14 +16,10 @@ Defines `ai:AIAgent` as a **software agent** (PROV-O) that also instantiates the
 classDiagram
   class coreAgent["core:Agent"]
   class provSoft["prov:SoftwareAgent"]
-  class schemaApp["schema:SoftwareApplication"]
-  class schemaSvc["schema:Service"]
   class aiAgent["ai:AIAgent"]
 
   coreAgent <|-- aiAgent
   provSoft <|-- aiAgent
-  schemaApp <|-- aiAgent
-  schemaSvc <|-- aiAgent
 ```
 
 ### Relationship diagram (where it sits)

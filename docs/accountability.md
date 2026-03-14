@@ -15,12 +15,12 @@ Defines how to assess **correctness, authorization, and compliance** for execute
   - `acc:rationale`
   - `acc:aiActSection`, `acc:riskClass`
 - **Object properties**
-  - `acc:actor` → `agent:Agent`
+  - `acc:actor` → `core:Agent`
   - `acc:action` → `core:Action`
   - `acc:delegationChain` → `acc:DelegationBasis`
   - `acc:referencesDelegation` → `del:Delegation`
   - `acc:responsibility` → `acc:ResponsibilityAttribution`
-  - `acc:assignedTo` → `agent:Agent`
+  - `acc:assignedTo` → `core:Agent`
   - `acc:compliance` → `acc:ComplianceAssessment`
   - `acc:linkedLedgerEvent` → `ledger:LedgerEvent`
 
@@ -42,13 +42,13 @@ classDiagram
 
 ```mermaid
 graph TD
-  AE[acc:AccountabilityEvent] -->|acc:actor| A[agent:Agent]
+  AE[acc:AccountabilityEvent] -->|acc:actor| A[core:Agent]
   AE -->|acc:action| X[core:Action]
   AE -->|acc:linkedLedgerEvent| LE[ledger:LedgerEvent]
   AE -->|acc:delegationChain| DB[acc:DelegationBasis]
   DB -->|acc:referencesDelegation| D[del:Delegation]
   AE -->|acc:responsibility| RA[acc:ResponsibilityAttribution]
-  RA -->|acc:assignedTo| WHO[agent:Agent]
+  RA -->|acc:assignedTo| WHO[core:Agent]
   AE -->|acc:compliance| CA[acc:ComplianceAssessment]
 ```
 

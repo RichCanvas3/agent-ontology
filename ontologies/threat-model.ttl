@@ -123,9 +123,6 @@ tm:delegatesTask a owl:ObjectProperty ;
 # Axioms for Threat Detection (Minimal)
 #################################################################
 
-# Consistency between Capability and Task (prevents Capability Misrepresentation)
-tm:hasCapability rdfs:subPropertyOf tm:requiresCapability .
-
 # Agents cannot claim contradictory capabilities (Minimal Disjoint Axiom)
 tm:CriticalCapability a owl:Class ;
     owl:disjointWith tm:RestrictedCapability .

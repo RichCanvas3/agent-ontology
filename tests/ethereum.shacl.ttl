@@ -2,6 +2,8 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 @prefix eth: <https://w3id.org/agent-ontology/ethereum#> .
+@prefix erc4337: <https://w3id.org/agent-ontology/erc-4337#> .
+@prefix eip1271: <https://w3id.org/agent-ontology/eip-1271#> .
 
 eth:AccountShape
   a sh:NodeShape ;
@@ -22,6 +24,45 @@ eth:TransactionShape
   sh:property [
     sh:path eth:chainId ;
     sh:datatype xsd:nonNegativeInteger ;
+    sh:minCount 0 ;
+  ] .
+
+eth:SmartAccountShape
+  a sh:NodeShape ;
+  sh:targetClass eth:SmartAccount ;
+  sh:property [
+    sh:path eth:address ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] .
+
+erc4337:UserOperationShape
+  a sh:NodeShape ;
+  sh:targetClass erc4337:UserOperation ;
+  sh:property [
+    sh:path erc4337:userOpSender ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path erc4337:handledByEntryPoint ;
+    sh:minCount 0 ;
+  ] .
+
+eip1271:SignatureValidationCallShape
+  a sh:NodeShape ;
+  sh:targetClass eip1271:SignatureValidationCall ;
+  sh:property [
+    sh:path eip1271:validatedBy ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path eip1271:messageHash ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+  ] ;
+  sh:property [
+    sh:path eip1271:signatureBytes ;
+    sh:datatype xsd:string ;
     sh:minCount 0 ;
   ] .
 

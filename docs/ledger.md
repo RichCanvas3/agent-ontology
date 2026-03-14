@@ -16,7 +16,8 @@ Defines **verifiable, append-only records** of agent events (runtime + governanc
   - `ledger:sideEffect`, `ledger:stateChange`
   - `ledger:aiActSection`, `ledger:riskClassification`
 - **Object properties**
-  - `ledger:actor` → `agent:Agent`
+  - `ledger:actor` → `core:Agent`
+  - `ledger:runtimeActor` → `agent:SoftwareAgent` (the executing software agent; distinct from responsible principal)
   - `ledger:delegation` → `del:Delegation`
   - `ledger:action` → `core:Action`
   - `ledger:usesCapability` → `cap:Capability`
@@ -46,7 +47,8 @@ classDiagram
 
 ```mermaid
 graph TD
-  E[ledger:RuntimeLedgerEvent] -->|ledger:actor| A[agent:Agent]
+  E[ledger:RuntimeLedgerEvent] -->|ledger:actor| A[core:Agent]
+  E -->|ledger:runtimeActor| SA[agent:SoftwareAgent]
   E -->|ledger:delegation| D[del:Delegation]
   E -->|ledger:action| X[core:Action]
   E -->|ledger:usesCapability| C[cap:Capability]
@@ -94,6 +96,7 @@ gc:ledger-event-0001 a ledger:RuntimeLedgerEvent ;
   ledger:eventId "evt_0001" ;
   ledger:timestamp "2026-06-15T12:00:00Z"^^xsd:dateTime ;
   ledger:actor gc:ncf-gca-eth ;
+  ledger:runtimeActor gc:grant-disburser-bot ;
   ledger:delegation gc:delegation-2026-06 ;
   ledger:action gc:action-disburse-grant-001 ;
   ledger:usesCapability gc:disburseGrant ;
@@ -102,6 +105,7 @@ gc:ledger-event-0001 a ledger:RuntimeLedgerEvent ;
   ledger:signature "0xabc123..." .
 
 gc:ncf-gca-eth a agent:Organization .
+gc:grant-disburser-bot a agent:SoftwareAgent .
 gc:delegation-2026-06 a del:Delegation .
 gc:action-disburse-grant-001 a core:Action .
 gc:disburseGrant a cap:Capability .

@@ -25,7 +25,6 @@ This folder contains human-readable documentation for each ontology module in `o
 - `ontologies/economic.ttl` → `docs/economic.md`
 - `ontologies/contract.ttl` → `docs/contract.md`
 - `ontologies/lifecycle.ttl` → `docs/lifecycle.md`
-- `ontologies/schema-org-mapping.ttl` → `docs/schema-org-mapping.md`
 - `ontologies/ontic-alignment.ttl` → `docs/ontic-alignment.md`
 
 ## Conventions used in examples
