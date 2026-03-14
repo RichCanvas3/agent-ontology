@@ -5,6 +5,7 @@ This folder contains human-readable documentation for each ontology module in `o
 ## Modules
 
 - `ontologies/ontology.ttl` → `docs/ontology.md` (umbrella imports)
+- **Overview**: `docs/upper-ontology-extensions.md` (what this ontology adds beyond PROV-O / P-PLAN / EP-PLAN)
 - `ontologies/core.ttl` → `docs/core.md`
 - `ontologies/agent.ttl` → `docs/agent.md`
 - `ontologies/ai-agent.ttl` → `docs/ai-agent.md`
